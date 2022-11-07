@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="dbba8648-a208-4c6b-a52e-289c99d9a8ec" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="helloworldapiFlow" doc:id="7ed4e05a-856f-4b03-b93f-a423c634b2d5" >
+		<http:listener doc:name="Listener" doc:id="ceed1a76-e02d-4684-a6b9-19e0cc59e33b" config-ref="HTTP_Listener_config" path="/hello"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c538e022-2775-49e3-8047-8ecb681a1825" message='#["Hello world"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="42f8ff17-4853-405a-a83f-e95a42b28318" name="helloworldapiSub_Flow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ff11bb34-0ab6-4581-af0f-47c024f36cf2" name="helloworldapiprivateFlow1"/>
+		<logger level="INFO" doc:name="Logger" doc:id="954ceaf5-d2c2-4a19-bcee-451255086d6b" message='#["hhahahah"]'/>
+	</flow>
+	<flow name="helloworldapiprivateFlow1" doc:id="04b4eedf-f865-411e-bccb-0c8c793b49e8" >
+		<logger level="INFO" doc:name="Logger" doc:id="fe70416d-0b48-4a97-b638-262308f725fe" message='#["private"]'/>
+	</flow>
+	<sub-flow name="helloworldapiSub_Flow" doc:id="1571d7bb-dd61-4727-878b-ba57678272e9" >
+		<logger level="INFO" doc:name="Logger" doc:id="b6f8f78f-731d-46ee-b832-a65abf421dec" message='#["subflow"]'/>
+	</sub-flow>
+</mule>
